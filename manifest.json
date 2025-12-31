@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "GitLab Auto Reviewer",
+  "version": "1.1.5",
+  "description": "GitLab MR 생성 시 리뷰어를 자동으로 추가하는 확장 프로그램",
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "GitLab Auto Reviewer 설정"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*/merge_requests/new*",
+        "https://*/*/merge_requests/*/edit*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

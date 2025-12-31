@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitLab Auto Reviewer 설정</title>
+  <link rel="stylesheet" href="popup-styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>GitLab Auto Reviewer</h1>
+      <p class="subtitle">리뷰어를 자동으로 추가하세요</p>
+    </header>
+
+    <main>
+      <div class="section">
+        <h2>리뷰어 목록</h2>
+        <p class="description">이름을 입력하세요 (예: 안성민, lovegogi)</p>
+
+        <div class="input-group">
+          <input
+            type="text"
+            id="reviewerInput"
+            placeholder="리뷰어 이름 입력"
+            autocomplete="off"
+          >
+          <button id="addButton" class="btn btn-primary">추가</button>
+        </div>
+
+        <ul id="reviewerList" class="reviewer-list"></ul>
+
+        <div class="stats" id="stats">
+          <span class="stats-label">등록된 리뷰어:</span>
+          <span class="stats-count" id="reviewerCount">0명</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>사용 방법</h2>
+        <ol class="instructions">
+          <li>위에서 리뷰어를 추가하세요</li>
+          <li>GitLab MR 페이지를 열어두세요</li>
+          <li>각 리뷰어의 "GitLab에 추가" 버튼을 클릭하세요</li>
+        </ol>
+      </div>
+    </main>
+
+    <footer>
+      <p class="version">v1.1.0</p>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
