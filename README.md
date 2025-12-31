@@ -20,5 +20,5 @@ GitLab은 리뷰어가 리스트에 없는 경우가 많아서 매번 리뷰어�
 
 ### 특정 GitLab 도메인으로 제한하기 (선택사항)
 특정 GitLab 도메인으로 제한하고 싶다면 `manifest.json` 파일을 수정하세요:
-- 12번째 줄: `"https://*/*"` → `"https://your-gitlab.com/*"`
-- 21-22번째 줄: `"https://*/*/merge_requests/..."` → `"https://your-gitlab.com/*/merge_requests/..."`
+- `host_permissions` 배열의 URL 패턴 수정
+- `content_scripts`의 `matches` 배열의 URL 패턴 수정
