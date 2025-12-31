@@ -203,70 +203,7 @@
       });
     }
 
-    // 결과 알림 (보라색 스낵바) - 일단 주석 처리
-    // showNotification(`${addedCount}명의 리뷰어가 추가되었습니다.`);
-
     return addedCount;
-  }
-
-  // 알림 표시 함수
-  function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'auto-reviewer-notification';
-    notification.textContent = message;
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-      notification.classList.add('show');
-    }, 10);
-
-    setTimeout(() => {
-      notification.classList.remove('show');
-      setTimeout(() => notification.remove(), 300);
-    }, 3000);
-  }
-
-  // 자동 추가 버튼 생성
-  function createAutoAddButton() {
-    // 이미 버튼이 있으면 생성하지 않음
-    if (document.querySelector('.auto-reviewer-button')) {
-      return;
-    }
-
-    // 리뷰어 섹션 찾기
-    const reviewerSection = document.querySelector('.js-issuable-form-dropdown.js-reviewer-search') ||
-                           document.querySelector('[data-testid="reviewers-select"]') ||
-                           document.querySelector('.reviewers-select');
-
-    if (!reviewerSection) {
-      console.log('리뷰어 섹션을 아직 찾을 수 없습니다. 재시도 중...');
-      return;
-    }
-
-    // 버튼 생성
-    const button = document.createElement('button');
-    button.className = 'auto-reviewer-button btn btn-default btn-sm';
-    button.type = 'button';
-    button.innerHTML = '리뷰어 자동 추가';
-    button.onclick = addReviewersAutomatically;
-
-    // 버튼을 리뷰어 섹션 위에 삽입
-    const container = document.createElement('div');
-    container.className = 'auto-reviewer-container';
-    container.appendChild(button);
-
-    // Reviewers 레이블 근처에 버튼 추가
-    const reviewerLabel = Array.from(document.querySelectorAll('label')).find(
-      label => label.textContent.trim() === 'Reviewers'
-    );
-
-    if (reviewerLabel) {
-      reviewerLabel.parentElement.insertBefore(container, reviewerSection);
-    } else {
-      reviewerSection.parentElement.insertBefore(container, reviewerSection);
-    }
-
-    console.log('GitLab Auto Reviewer: 버튼이 추가되었습니다.');
   }
 
   // 팝업으로부터 메시지 수신
@@ -288,34 +225,4 @@
       return true;
     }
   });
-
-  // 페이지 로드 시 버튼 추가
-  function init() {
-    // DOM이 완전히 로드될 때까지 대기
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', createAutoAddButton);
-    } else {
-      createAutoAddButton();
-    }
-
-    // GitLab은 SPA이므로 MutationObserver로 동적 변화 감지
-    const observer = new MutationObserver(() => {
-      if (!document.querySelector('.auto-reviewer-button')) {
-        createAutoAddButton();
-      }
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-
-    // 일정 시간 후에도 버튼이 없으면 다시 시도
-    setTimeout(createAutoAddButton, 1000);
-    setTimeout(createAutoAddButton, 2000);
-    setTimeout(createAutoAddButton, 3000);
-  }
-
-  // 초기화
-  init();
 })();
