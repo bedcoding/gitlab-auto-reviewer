@@ -8,8 +8,7 @@
   },
   "permissions": [
     "storage",
-    "tabs",
-    "scripting"
+    "tabs"
   ],
   "host_permissions": [
     "https://*/*"
