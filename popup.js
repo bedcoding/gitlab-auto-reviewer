@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const addButton = document.getElementById('addButton');
   const reviewerList = document.getElementById('reviewerList');
   const reviewerCount = document.getElementById('reviewerCount');
+  const helpButton = document.getElementById('helpButton');
+  const helpModal = document.getElementById('helpModal');
+  const closeModal = document.getElementById('closeModal');
 
   // 리뷰어 목록 로드
   function loadReviewers() {
@@ -18,6 +21,13 @@ document.addEventListener('DOMContentLoaded', function() {
   // 리뷰어 목록 렌더링
   function renderReviewers(reviewers) {
     reviewerList.innerHTML = '';
+
+    // 7개 이상이면 스크롤바 공간 확보
+    if (reviewers.length >= 7) {
+      reviewerList.classList.add('has-scrollbar');
+    } else {
+      reviewerList.classList.remove('has-scrollbar');
+    }
 
     if (reviewers.length === 0) {
       reviewerList.innerHTML = '<li class="empty-state">아직 등록된 리뷰어가 없습니다</li>';
@@ -101,6 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // 카운트 업데이트
   function updateCount(count) {
     reviewerCount.textContent = `${count}명`;
+    const statsElement = document.getElementById('stats');
+    if (count === 0) {
+      statsElement.style.display = 'none';
+    } else {
+      statsElement.style.display = 'flex';
+    }
   }
 
   // 성공 메시지 표시
@@ -169,6 +185,22 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+
+  // 모달 열기/닫기
+  helpButton.addEventListener('click', function() {
+    helpModal.style.display = 'flex';
+  });
+
+  closeModal.addEventListener('click', function() {
+    helpModal.style.display = 'none';
+  });
+
+  // 모달 외부 클릭시 닫기
+  helpModal.addEventListener('click', function(e) {
+    if (e.target === helpModal) {
+      helpModal.style.display = 'none';
+    }
+  });
 
   // 이벤트 리스너
   addButton.addEventListener('click', addReviewer);
