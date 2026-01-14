@@ -180,7 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
           showSuccess(`"${reviewer}" 추가됨`);
         } else {
           console.log('응답:', response);
-          showError(`"${reviewer}" 추가 실패`);
+          const errorMsg = response && response.error ? response.error : `"${reviewer}" 추가 실패`;
+          showError(errorMsg);
         }
       });
     });
